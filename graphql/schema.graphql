@@ -1,0 +1,50 @@
+type Application
+  @model
+  @auth(rules: [{ allow: private, provider: userPools }]) {
+  id: ID!
+  name: String!
+  description: String!
+  documents: [Document]
+}
+
+type Document @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  id: ID!
+  name: String!
+  publishUrl: String
+  s3Url: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  applicationId: ID!
+}
+
+type User @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  id: ID!
+  username: String!
+  email: String!
+  allowedApplications: [Application]
+}
+
+# step functionsで同期実行時のステータス
+type Execution @model @auth(rules: [{ allow: private, provider: userPools }]) {
+  id: ID
+  name: String
+  status: String
+  input: String
+  executionArn: String
+  startDate: String
+  stopDate: String
+  output: String
+}
+
+input StartExecutionInput {
+  input: String!
+  name: String!
+}
+
+type Mutation {
+  startExecution(execution: StartExecutionInput!): Execution
+}
+
+type Subscription {
+  onStartExecution: Execution @aws_subscribe(mutations: ["startExecution"])
+}
