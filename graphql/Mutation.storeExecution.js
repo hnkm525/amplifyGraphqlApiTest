@@ -8,6 +8,7 @@ import { util } from "@aws-appsync/utils";
 export function request(ctx) {
   console.log("🍎");
   console.log("ctx", ctx);
+  console.log("ctx.args", ctx.args);
   console.log("🍎");
 
   // TODO: valuesエラー直す

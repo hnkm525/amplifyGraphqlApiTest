@@ -9,7 +9,7 @@ aws cognito-idp sign-up \
   --client-id $CLIENT_ID \
   --username tester \
   --password Password1234! \
-  --user-attributes Name=email,Value=is171078kks@gmail.com
+  --user-attributes Name=email,Value=example@example.com
 
 aws cognito-idp admin-confirm-sign-up \
   --user-pool-id $USER_POOL_ID \
